@@ -6,8 +6,8 @@ VERSION = 0.9.3
 # paths
 PREFIX = /usr/local
 MANPREFIX = $(PREFIX)/share/man
-ICONPREFIX = $(PREFIX)/share/pixmaps
-ICONNAME = st.png
+ICONPREFIX = /tmp
+ICONNAME = st-icon.png
 
 X11INC = /usr/X11R6/include
 X11LIB = /usr/X11R6/lib
@@ -15,20 +15,20 @@ X11LIB = /usr/X11R6/lib
 PKG_CONFIG = pkg-config
 
 # Uncomment this for the alpha patch / ALPHA_PATCH
-#XRENDER = `$(PKG_CONFIG) --libs xrender`
+XRENDER = `$(PKG_CONFIG) --libs xrender`
 
 # Uncomment this for the themed cursor patch / THEMED_CURSOR_PATCH
 #XCURSOR = `$(PKG_CONFIG) --libs xcursor`
 
 # Uncomment the lines below for the ligatures patch / LIGATURES_PATCH
-#LIGATURES_C = hb.c
-#LIGATURES_H = hb.h
-#LIGATURES_INC = `$(PKG_CONFIG) --cflags harfbuzz`
-#LIGATURES_LIBS = `$(PKG_CONFIG) --libs harfbuzz`
+LIGATURES_C = hb.c
+LIGATURES_H = hb.h
+LIGATURES_INC = `$(PKG_CONFIG) --cflags harfbuzz`
+LIGATURES_LIBS = `$(PKG_CONFIG) --libs harfbuzz`
 
 # Uncomment this for the SIXEL patch / SIXEL_PATCH
-#SIXEL_C = sixel.c sixel_hls.c
-#SIXEL_LIBS = `$(PKG_CONFIG) --libs imlib2`
+SIXEL_C = sixel.c sixel_hls.c
+SIXEL_LIBS = `$(PKG_CONFIG) --libs imlib2`
 
 # Uncomment for the netwmicon patch / NETWMICON_PATCH
 #NETWMICON_LIBS = `$(PKG_CONFIG) --libs gdlib`
@@ -46,6 +46,10 @@ LIBS = -L$(X11LIB) -lm -lX11 -lutil -lXft ${SIXEL_LIBS} ${XRENDER} ${XCURSOR}\
 
 # flags
 STCPPFLAGS = -DVERSION=\"$(VERSION)\" -DICON=\"$(ICONPREFIX)/$(ICONNAME)\" -D_XOPEN_SOURCE=600
+CFLAGS = -march=native -mtune=native -O3 -pipe -flto=auto -fno-plt -fexceptions \
+         -Wp,-D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security \
+         -fstack-clash-protection -fcf-protection
+LDFLAGS = -Wl,-O3,--sort-common,--as-needed,-z,relro,-z,now -flto=auto
 STCFLAGS = $(INCS) $(STCPPFLAGS) $(CPPFLAGS) $(CFLAGS)
 STLDFLAGS = $(LIBS) $(LDFLAGS)
 
@@ -54,4 +58,4 @@ STLDFLAGS = $(LIBS) $(LDFLAGS)
 #MANPREFIX = ${PREFIX}/man
 
 # compiler and linker
-# CC = c99
+CC = gcc

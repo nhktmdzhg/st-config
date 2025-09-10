@@ -1838,7 +1838,7 @@ xmakeglyphfontspecs(XftGlyphFontSpec *specs, const Glyph *glyphs, int len, int x
 
 				FcCharSetAddChar(fccharset, rune);
 				FcPatternAddCharSet(fcpattern, FC_CHARSET, fccharset);
-				FcPatternAddBool(fcpattern, FC_SCALABLE, 1);
+				FcPatternAddBool(fcpattern, FC_COLOR, FcFalse);
 
 				FcConfigSubstitute(0, fcpattern, FcMatchPattern);
 				FcDefaultSubstitute(fcpattern);
@@ -1953,7 +1953,7 @@ xmakeglyphfontspecs(XftGlyphFontSpec *specs, const Glyph *glyphs, int len, int x
 
 			FcCharSetAddChar(fccharset, rune);
 			FcPatternAddCharSet(fcpattern, FC_CHARSET, fccharset);
-			FcPatternAddBool(fcpattern, FC_SCALABLE, 1);
+			FcPatternAddBool(fcpattern, FC_COLOR, FcFalse);
 
 			#if !USE_XFTFONTMATCH_PATCH
 			FcConfigSubstitute(0, fcpattern, FcMatchPattern);
@@ -3927,6 +3927,9 @@ usage(void)
 int
 main(int argc, char *argv[])
 {
+	/* Disable IME by default */
+	setenv("XMODIFIERS", "@im=none", 1);
+	
 	xw.l = xw.t = 0;
 	xw.isfixed = False;
 	#if BLINKING_CURSOR_PATCH

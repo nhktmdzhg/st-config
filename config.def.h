@@ -5,7 +5,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
+static char *font = "Maple Mono NF CN:pixelsize=16:antialias=true:autohint=true";
 #if FONT2_PATCH
 /* Spare fonts */
 static char *font2[] = {
@@ -29,7 +29,7 @@ static const int pseudotransparency = 0;
  *             0 = no border, 100 = border width is same as cell width */
 int borderperc = 20;
 #else
-static int borderpx = 2;
+static int borderpx = 0;
 #endif // RELATIVEBORDER_PATCH
 
 #if OPENURLONCLICK_PATCH
@@ -46,7 +46,7 @@ static char *url_opener = "xdg-open";
  * 4: value of shell in /etc/passwd
  * 5: value of shell in config.h
  */
-static char *shell = "/bin/sh";
+static char *shell = "/bin/fish";
 char *utmp = NULL;
 /* scroll program: to enable use a string like "scroll" */
 char *scroll = NULL;
@@ -96,8 +96,8 @@ int allowwindowops = 0;
  * near minlatency, but it waits longer for slow updates to avoid partial draw.
  * low minlatency will tear/flicker more, as it can "detect" idle too early.
  */
-static double minlatency = 2;
-static double maxlatency = 33;
+static double minlatency = 0;
+static double maxlatency = 16;
 
 #if SYNC_PATCH
 /*
@@ -165,7 +165,7 @@ unsigned int tabspaces = 8;
 
 #if ALPHA_PATCH
 /* bg opacity */
-float alpha = 0.8;
+float alpha = 0.9;
 #if ALPHA_GRADIENT_PATCH
 float grad_alpha = 0.54; //alpha value that'll change
 float stat_alpha = 0.46; //constant alpha value that'll get added to grad_alpha
@@ -187,32 +187,32 @@ char *xdndescchar = " !\"#$&'()*;<>?[\\]^`{|}~";
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
 	/* 8 normal colors */
-	"black",
-	"red3",
-	"green3",
-	"yellow3",
-	"blue2",
-	"magenta3",
-	"cyan3",
-	"gray90",
+	"#45475A", /* black */
+	"#F38BA8", /* red */
+	"#A6E3A1", /* green */
+	"#F9E2AF", /* yellow */
+	"#89B4FA", /* blue */
+	"#F5C2E7", /* magenta */
+	"#94E2D5", /* cyan */
+	"#BAC2DE", /* white */
 
 	/* 8 bright colors */
-	"gray50",
-	"red",
-	"green",
-	"yellow",
-	"#5c5cff",
-	"magenta",
-	"cyan",
-	"white",
+	"#585B70", /* bright black */
+	"#F38BA8", /* bright red */
+	"#A6E3A1", /* bright green */
+	"#F9E2AF", /* bright yellow */
+	"#89B4FA", /* bright blue */
+	"#F5C2E7", /* bright magenta */
+	"#94E2D5", /* bright cyan */
+	"#A6ADC8", /* bright white */
 
 	[255] = 0,
 
 	/* more colors can be added after 255 to use with DefaultXX */
-	"#add8e6", /* 256 -> cursor */
-	"#555555", /* 257 -> rev cursor*/
-	"#000000", /* 258 -> bg */
-	"#e5e5e5", /* 259 -> fg */
+	"#F5E0DC", /* 256 -> cursor */
+	"#1E1E2E", /* 257 -> rev cursor*/
+	"#1E1E2E", /* 258 -> bg */
+	"#CDD6F4", /* 259 -> fg */
 };
 
 
@@ -256,7 +256,7 @@ unsigned int highlightbg = 160;
  * 7: Blinking st cursor
  * 8: Steady st cursor
  */
-static unsigned int cursorstyle = 1;
+static unsigned int cursorstyle = 5;
 static Rune stcursor = 0x2603; /* snowman (U+2603) */
 #else
 /*
@@ -273,8 +273,8 @@ static unsigned int cursorshape = 2;
  * Default columns and rows numbers
  */
 
-static unsigned int cols = 80;
-static unsigned int rows = 24;
+static unsigned int cols = 128;
+static unsigned int rows = 35;
 
 #if ANYGEOMETRY_PATCH
 /*
@@ -418,70 +418,70 @@ static char *setbgcolorcmd[] = { "/bin/sh", "-c",
 
 static Shortcut shortcuts[] = {
 	/* mask                 keysym          function         argument   screen */
-	{ XK_ANY_MOD,           XK_Break,       sendbreak,       {.i =  0} },
-	{ ControlMask,          XK_Print,       toggleprinter,   {.i =  0} },
-	{ ShiftMask,            XK_Print,       printscreen,     {.i =  0} },
-	{ XK_ANY_MOD,           XK_Print,       printsel,        {.i =  0} },
-	{ TERMMOD,              XK_Prior,       zoom,            {.f = +1} },
-	{ TERMMOD,              XK_Next,        zoom,            {.f = -1} },
-	{ TERMMOD,              XK_Home,        zoomreset,       {.f =  0} },
+	/* { XK_ANY_MOD,           XK_Break,       sendbreak,       {.i =  0} }, */
+	/* { ControlMask,          XK_Print,       toggleprinter,   {.i =  0} }, */
+	/* { ShiftMask,            XK_Print,       printscreen,     {.i =  0} }, */
+	/* { XK_ANY_MOD,           XK_Print,       printsel,        {.i =  0} }, */
+	/* { TERMMOD,              XK_Prior,       zoom,            {.f = +1} }, */
+	/* { TERMMOD,              XK_Next,        zoom,            {.f = -1} }, */
+	/* { TERMMOD,              XK_Home,        zoomreset,       {.f =  0} }, */
 	{ TERMMOD,              XK_C,           clipcopy,        {.i =  0} },
 	{ TERMMOD,              XK_V,           clippaste,       {.i =  0} },
 	#if ALPHA_PATCH
-	{ TERMMOD,              XK_O,           changealpha,     {.f = +0.05} },
-	{ TERMMOD,              XK_P,           changealpha,     {.f = -0.05} },
+	/* { TERMMOD,              XK_O,           changealpha,     {.f = +0.05} }, */
+	/* { TERMMOD,              XK_P,           changealpha,     {.f = -0.05} }, */
 	#if ALPHA_FOCUS_HIGHLIGHT_PATCH
 	//{ TERMMOD,              XK_,           changealphaunfocused, {.f = +0.05} },
 	//{ TERMMOD,              XK_,           changealphaunfocused, {.f = -0.05} },
 	#endif // ALPHA_FOCUS_HIGHLIGHT_PATCH
 	#endif // ALPHA_PATCH
 	#if FULLSCREEN_PATCH
-	{ XK_NO_MOD,            XK_F11,         fullscreen,      {.i =  0} },
-	{ MODKEY,               XK_Return,      fullscreen,      {.i =  0} },
+	/* { XK_NO_MOD,            XK_F11,         fullscreen,      {.i =  0} }, */
+	/* { MODKEY,               XK_Return,      fullscreen,      {.i =  0} }, */
 	#endif // FULLSCREEN_PATCH
 	#if SCROLLBACK_PATCH
-	{ ShiftMask,            XK_Page_Up,     kscrollup,       {.i = -1}, S_PRI },
-	{ ShiftMask,            XK_Page_Down,   kscrolldown,     {.i = -1}, S_PRI },
+	{ XK_NO_MOD,            XK_Page_Up,     kscrollup,       {.i = -1}, S_PRI },
+	{ XK_NO_MOD,            XK_Page_Down,   kscrolldown,     {.i = -1}, S_PRI },
 	#endif // SCROLLBACK_PATCH
 	#if CLIPBOARD_PATCH
-	{ TERMMOD,              XK_Y,           clippaste,       {.i =  0} },
-	{ ShiftMask,            XK_Insert,      clippaste,       {.i =  0} },
+	/* { TERMMOD,              XK_Y,           clippaste,       {.i =  0} }, */
+	/* { ShiftMask,            XK_Insert,      clippaste,       {.i =  0} }, */
 	#else
-	{ TERMMOD,              XK_Y,           selpaste,        {.i =  0} },
-	{ ShiftMask,            XK_Insert,      selpaste,        {.i =  0} },
+	/* { TERMMOD,              XK_Y,           selpaste,        {.i =  0} }, */
+	/* { ShiftMask,            XK_Insert,      selpaste,        {.i =  0} }, */
 	#endif // CLIPBOARD_PATCH
-	{ TERMMOD,              XK_Num_Lock,    numlock,         {.i =  0} },
+	/* { TERMMOD,              XK_Num_Lock,    numlock,         {.i =  0} }, */
 	#if COPYURL_PATCH || COPYURL_HIGHLIGHT_SELECTED_URLS_PATCH
-	{ MODKEY,               XK_l,           copyurl,         {.i =  0} },
+	/* { MODKEY,               XK_l,           copyurl,         {.i =  0} }, */
 	#endif // COPYURL_PATCH
 	#if OPENCOPIED_PATCH
-	{ MODKEY,               XK_o,           opencopied,      {.v = "xdg-open"} },
+	/* { MODKEY,               XK_o,           opencopied,      {.v = "xdg-open"} }, */
 	#endif // OPENCOPIED_PATCH
 	#if NEWTERM_PATCH
-	{ TERMMOD,              XK_Return,      newterm,         {.i =  0} },
+	/* { TERMMOD,              XK_Return,      newterm,         {.i =  0} }, */
 	#endif // NEWTERM_PATCH
 	#if EXTERNALPIPE_PATCH
-	{ TERMMOD,              XK_U,           externalpipe,    { .v = openurlcmd } },
+	/* { TERMMOD,              XK_U,           externalpipe,    { .v = openurlcmd } }, */
 	#if EXTERNALPIPEIN_PATCH
-	{ TERMMOD,              XK_M,           externalpipein,  { .v = setbgcolorcmd } },
+	/* { TERMMOD,              XK_M,           externalpipein,  { .v = setbgcolorcmd } }, */
 	#endif // EXTERNALPIPEIN_PATCH
 	#endif // EXTERNALPIPE_PATCH
 	#if KEYBOARDSELECT_PATCH
-	{ TERMMOD,              XK_Escape,      keyboard_select, { 0 } },
+	/* { TERMMOD,              XK_Escape,      keyboard_select, { 0 } }, */
 	#endif // KEYBOARDSELECT_PATCH
 	#if KEYBOARDSELECT_PATCH && REFLOW_PATCH
-	{ TERMMOD,              XK_F,           searchforward,   { 0 } },
-	{ TERMMOD,              XK_B,           searchbackward,  { 0 } },
+	/* { TERMMOD,              XK_F,           searchforward,   { 0 } }, */
+	/* { TERMMOD,              XK_B,           searchbackward,  { 0 } }, */
 	#endif // KEYBOARDSELECT_PATCH
 	#if ISO14755_PATCH
-	{ TERMMOD,              XK_I,           iso14755,        {.i =  0} },
+	/* { TERMMOD,              XK_I,           iso14755,        {.i =  0} }, */
 	#endif // ISO14755_PATCH
 	#if INVERT_PATCH
-	{ TERMMOD,              XK_X,           invert,          { 0 } },
+	/* { TERMMOD,              XK_X,           invert,          { 0 } }, */
 	#endif // INVERT_PATCH
 	#if OSC133_PATCH
-	{ ControlMask,          XK_Page_Up,     scrolltoprompt,  {.i = -1}, S_PRI },
-	{ ControlMask,          XK_Page_Down,   scrolltoprompt,  {.i =  1}, S_PRI },
+	/* { ControlMask,          XK_Page_Up,     scrolltoprompt,  {.i = -1}, S_PRI }, */
+	/* { ControlMask,          XK_Page_Down,   scrolltoprompt,  {.i =  1}, S_PRI }, */
 	#endif // OSC133_PATCH
 };
 
