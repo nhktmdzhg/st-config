@@ -97,7 +97,7 @@ int allowwindowops = 0;
  * low minlatency will tear/flicker more, as it can "detect" idle too early.
  */
 static double minlatency = 0;
-static double maxlatency = 16;
+static double maxlatency = 1;
 
 #if SYNC_PATCH
 /*
