@@ -144,7 +144,7 @@ const int boxdraw_braille = 0;
 static int bellvolume = 0;
 
 /* default TERM value */
-char *termname = "st-256color";
+char *termname = "st-meta-256color";
 
 /*
  * spaces per tab
@@ -380,8 +380,8 @@ static MouseShortcut mshortcuts[] = {
 	{ XK_ANY_MOD,           Button2, selpaste,       {.i = 0},      1 },
 	#endif // CLIPBOARD_PATCH
 	#if SCROLLBACK_MOUSE_PATCH
-	{ ShiftMask,            Button4, kscrollup,      {.i = 1},      0, S_PRI},
-	{ ShiftMask,            Button5, kscrolldown,    {.i = 1},      0, S_PRI},
+	{ ShiftMask,            Button4, kscrollup,      {.i = 5},      0, S_PRI},
+	{ ShiftMask,            Button5, kscrolldown,    {.i = 5},      0, S_PRI},
 	#elif UNIVERSCROLL_PATCH
 	{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\033[5;2~"}, 0, S_PRI },
 	{ XK_ANY_MOD,           Button5, ttysend,        {.s = "\033[6;2~"}, 0, S_PRI },
@@ -390,8 +390,8 @@ static MouseShortcut mshortcuts[] = {
 	{ ShiftMask,            Button5, ttysend,        {.s = "\033[6;2~"} },
 	#endif // SCROLLBACK_MOUSE_PATCH
 	#if SCROLLBACK_MOUSE_ALTSCREEN_PATCH || REFLOW_PATCH
-	{ XK_ANY_MOD,           Button4, kscrollup,      {.i = 1},      0, S_PRI },
-	{ XK_ANY_MOD,           Button5, kscrolldown,    {.i = 1},      0, S_PRI },
+	{ XK_ANY_MOD,           Button4, kscrollup,      {.i = 5},      0, S_PRI },
+	{ XK_ANY_MOD,           Button5, kscrolldown,    {.i = 5},      0, S_PRI },
 	{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"}, 0, S_ALT },
 	{ XK_ANY_MOD,           Button5, ttysend,        {.s = "\005"}, 0, S_ALT },
 	#else
@@ -440,8 +440,8 @@ static Shortcut shortcuts[] = {
 	/* { MODKEY,               XK_Return,      fullscreen,      {.i =  0} }, */
 	#endif // FULLSCREEN_PATCH
 	#if SCROLLBACK_PATCH
-	{ XK_NO_MOD,            XK_Page_Up,     kscrollup,       {.i = -1}, S_PRI },
-	{ XK_NO_MOD,            XK_Page_Down,   kscrolldown,     {.i = -1}, S_PRI },
+	{ XK_NO_MOD,            XK_Page_Up,     kscrollup,       {.i = -5}, S_PRI },
+	{ XK_NO_MOD,            XK_Page_Down,   kscrolldown,     {.i = -5}, S_PRI },
 	#endif // SCROLLBACK_PATCH
 	#if CLIPBOARD_PATCH
 	/* { TERMMOD,              XK_Y,           clippaste,       {.i =  0} }, */
