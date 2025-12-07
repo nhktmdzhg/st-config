@@ -186,35 +186,31 @@ char *xdndescchar = " !\"#$&'()*;<>?[\\]^`{|}~";
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
-	/* 8 normal colors */
-	"#45475A", /* black */
-	"#F38BA8", /* red */
-	"#A6E3A1", /* green */
-	"#F9E2AF", /* yellow */
-	"#89B4FA", /* blue */
-	"#F5C2E7", /* magenta */
-	"#94E2D5", /* cyan */
-	"#BAC2DE", /* white */
+    /* 8 normal colors */
+    "#45475A",
+    "#F38BA8",
+    "#A6E3A1",
+    "#F9E2AF",
+    "#89B4FA",
+    "#F5C2E7",
+    "#94E2D5",
+    "#BAC2DE",
 
-	/* 8 bright colors */
-	"#585B70", /* bright black */
-	"#F38BA8", /* bright red */
-	"#A6E3A1", /* bright green */
-	"#F9E2AF", /* bright yellow */
-	"#89B4FA", /* bright blue */
-	"#F5C2E7", /* bright magenta */
-	"#94E2D5", /* bright cyan */
-	"#A6ADC8", /* bright white */
+    /* 8 bright colors */
+    "#585B70",
+    "#F38BA8",
+    "#A6E3A1",
+    "#F9E2AF",
+    "#89B4FA",
+    "#F5C2E7",
+    "#94E2D5",
+    "#A6ADC8",
 
-	[255] = 0,
+    [256] = "#CDD6F4", /* default foreground colour */
+    [257] = "#1E1E2E", /* default background colour */
+    [258] = "#F5E0DC", /*575268*/
 
-	/* more colors can be added after 255 to use with DefaultXX */
-	"#F5E0DC", /* 256 -> cursor */
-	"#1E1E2E", /* 257 -> rev cursor*/
-	"#1E1E2E", /* 258 -> bg */
-	"#CDD6F4", /* 259 -> fg */
 };
-
 
 /*
  * Default colors (colorname index)
@@ -224,11 +220,11 @@ static const char *colorname[] = {
 unsigned int defaultbg = 0;
 unsigned int bg = 17, bgUnfocused = 16;
 #else
-unsigned int defaultbg = 258;
+unsigned int defaultbg = 257;
 #endif // ALPHA_FOCUS_HIGHLIGHT_PATCH
-unsigned int defaultfg = 259;
-unsigned int defaultcs = 256;
-unsigned int defaultrcs = 257;
+unsigned int defaultfg = 256;
+unsigned int defaultcs = 258;
+unsigned int defaultrcs = 258;
 #if SELECTION_COLORS_PATCH
 unsigned int selectionfg = 258;
 unsigned int selectionbg = 259;
